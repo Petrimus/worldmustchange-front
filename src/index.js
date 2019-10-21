@@ -1,12 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore, combineReducers } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { Provider } from 'react-redux'
+import './index.css'
+import App from './App'
+import countryReducer from './reducers/countryReducer'
+import optionReducer from './reducers/optionReducer'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const reducer = combineReducers({
+  countries: countryReducer,
+  options: optionReducer
+})
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const store = createStore(reducer, composeWithDevTools())
+// console.log('store', store)
+console.log('state', store.getState())
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'));
+

@@ -1,0 +1,5 @@
+dark gray #5D5C61
+light gray #379683
+light blue #7395AE
+darker blue #557A95
+yellow brownn #B1A296
