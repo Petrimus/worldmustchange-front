@@ -1,18 +1,23 @@
 import styled from 'styled-components'
 
 export const OptionsContainer = styled.div`
-  display: flex;
+  /*
+  display: flex;  
   justify-content: center;
   align-items: center;
-  padding-top: 1em;
-  width: 100%;
-  height: calc(100% - 1em);
   background-color: #5D5C61;
+  */
+  padding: 1em 10px 0 1em;  
+  width: 95%;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 1px 0px 2px 1px rgba(115,149,174,.6);
+ 
 `
 
-export const OptionTitle = styled.h2`
+export const OptionTitle = styled.h1`
   color: #7395AE;
-  margin-top: 0;
+  margin-top: 0;  
 `
 
 export const OptionsBox = styled.div`
@@ -25,21 +30,26 @@ export const OptionsBox = styled.div`
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.13);
 `
 
-export const StyledUl = styled.ul`
+export const OptionList = styled.ul`
   list-style-type: none;
 	padding-left: 50px;
 	margin: 0;
 `
 
-export const Item = styled.li`
+export const OptionItem = styled.li`
   display: block;
 	position: relative;
 	padding: 20px 0px;
 `
 
-export const RadioLabel = styled.label`
+export const OptionRadioLabel = styled.label`
   cursor: pointer; 
-	font-weight: 400;
+	font-weight: 500; 
+  font-size: 16px; 
+
+  &:hover {
+    font-weight: bold;
+  }
 `
 
 export const Check = styled.div`
@@ -57,7 +67,7 @@ export const CheckMarked = styled(Check)`
   box-shadow: 0 6px 12px rgba(177, 162, 150, 0.4);
 `
 
-export const StyledRadioButton = styled.input`
+export const OptionRadioButton = styled.input`
   position: absolute;
   visibility: hidden;
 

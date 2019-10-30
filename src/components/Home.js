@@ -1,5 +1,5 @@
 import React from 'react'
-import Hello from './HelloWorld'
+// import Hello from './HelloWorld'
 
 //import components
 import ViewList from './ViewList'
@@ -24,8 +24,7 @@ const Home = () => {
       <StyledOptionsLayout>
         <Options />
       </StyledOptionsLayout>
-      <StyledViewLayout >
-        <Hello />
+      <StyledViewLayout >        
         <ViewList />
       </StyledViewLayout>
       <StyledFooterLayout>

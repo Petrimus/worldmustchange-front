@@ -10,7 +10,6 @@ align-items: center;
 padding-left: 6em;
 padding-right: 4em;
 box-shadow: 0 2px 2px -2px rgba(115,149,174,.6);
-
 z-index: 2;
 position: relative;
 `

@@ -10,9 +10,9 @@ const optionReducer = (state = 'optionOne', action) => {
   switch (action.type) {
     case 'SET_OPTION':
       return action.option
-      default:
-        return state
-  } 
+    default:
+      return state
+  }
 }
 
 export default optionReducer

@@ -5,19 +5,18 @@ import { optionChange } from '../reducers/optionReducer'
 // import styles
 import {
   OptionsContainer,
-  OptionTitle,
-  OptionsBox,
-  Item,
-  StyledUl,
-  RadioLabel,
-  StyledRadioButton,
+  OptionTitle,  
+  OptionItem,
+  OptionList,
+  OptionRadioLabel,
+  OptionRadioButton,
   Check,
   CheckMarked
 } from '../components/styles/styledOptions'
 
 const Options = (props) => {
   const [select, setSelect] = useState('optionOne')
-  const handleSelectChange = event => {
+  const handleOptionChange = event => {
     //console.log(select)
     const value = event.target.value
     // console.log(select === "optionOne")
@@ -45,54 +44,54 @@ const Options = (props) => {
 
   return (
     <OptionsContainer>
-      <OptionsBox>
+ 
         <OptionTitle>Menu</OptionTitle>
-        <StyledUl>
-          <Item>
-            <StyledRadioButton
+        <OptionList>
+          <OptionItem>
+            <OptionRadioButton
               type="radio"
-              name="radio"
+              name="options"
               className="op1"
               value="optionOne"
               id="one"
               checked={select === "optionOne"}
-              onChange={event => handleSelectChange(event)}
+              onChange={event => handleOptionChange(event)}
             />
-            <RadioLabel htmlFor="one">Option #1</RadioLabel>
+            <OptionRadioLabel htmlFor="one">Single country</OptionRadioLabel>
             <Check />
-          </Item>
+          </OptionItem>
 
-          <Item>
-            <StyledRadioButton
+          <OptionItem>
+            <OptionRadioButton
               type="radio"
-              name="radio"
+              name="options"
               className="op2"
               id="two"
               value="optionTwo"
               checked={select === "optionTwo"}
-              onChange={event => handleSelectChange(event)}
+              onChange={event => handleOptionChange(event)}
             />
-            <RadioLabel htmlFor="two">Option #2</RadioLabel>
+            <OptionRadioLabel htmlFor="two">Compare</OptionRadioLabel>
             <CheckMarked
               pos={selectPositions()}
             ></CheckMarked>
-          </Item>
-          <Item>
-            <StyledRadioButton
+          </OptionItem>
+          <OptionItem>
+            <OptionRadioButton
               type="radio"
-              name="radio"
+              name="options"
               className="op3"
               id="three"
               value="optionThree"
               checked={select === "optionThree"}
-              onChange={event => handleSelectChange(event)}
+              onChange={event => handleOptionChange(event)}
             />
-            <RadioLabel htmlFor="three">Option #3</RadioLabel>
+            <OptionRadioLabel htmlFor="three">Option #3</OptionRadioLabel>
 
             <Check />
-          </Item>
-        </StyledUl>
-      </OptionsBox>
+          </OptionItem>
+        </OptionList>
+      
     </OptionsContainer>
   )
 }

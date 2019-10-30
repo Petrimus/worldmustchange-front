@@ -7,15 +7,17 @@ import './index.css'
 import App from './App'
 import countryReducer from './reducers/countryReducer'
 import optionReducer from './reducers/optionReducer'
+import filterReducer from './reducers/filterReducer'
 
 const reducer = combineReducers({
   countries: countryReducer,
-  options: optionReducer
+  options: optionReducer,
+  filter: filterReducer,
 })
 
 const store = createStore(reducer, composeWithDevTools())
 // console.log('store', store)
-console.log('state', store.getState())
+// console.log('state', store.getState())
 
 
 ReactDOM.render(
