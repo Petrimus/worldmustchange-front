@@ -32,18 +32,16 @@ const RangeSlider = (props) => {
   const { value, handleChange } = props
 
   const classes = useStyles();
-   
+      
   return (
     <div className={classes.root}>
       <Typography id="range-slider" gutterBottom>
         Year range
       </Typography>
       <ThemeProvider theme={theme} >
-        <Slider
-        
-          max={2020}
+        <Slider   
           min={1960}
-          
+          max={2020}      
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"

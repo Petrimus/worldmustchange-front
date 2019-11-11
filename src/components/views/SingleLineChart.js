@@ -13,9 +13,8 @@ const SingleLineChart = ({ data }) => {
       <XAxis 
       type="number"
        dataKey="year" 
-       domain={[1960, 2020]} 
-       interval={"preserveEnd"}
-      
+       domain={['dataMin', 'dataMax']} 
+       interval={"preserveEnd"}      
        />
       <YAxis dataKey="value"/>
       <Tooltip />

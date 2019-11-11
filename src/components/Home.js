@@ -1,9 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 // import Hello from './HelloWorld'
 
 //import components
-import ViewList from './ViewList'
 import Options from './Options'
+import Lists from './Lists'
+import Charts from './Charts'
 
 // import styles
 import StyledAppLayout from './styles/layouts/StyledAppLayout'
@@ -13,9 +15,8 @@ import StyledOptionsLayout from './styles/layouts/StyledOptionsLayout'
 import StyledViewLayout from './styles/layouts/StyledViewLayout'
 import Navbar from './NavBar'
 
-
-const Home = () => {
-
+const Home = (props) => {
+ 
   return (
     <StyledAppLayout>
       <StyledHeaderLayout>
@@ -25,7 +26,7 @@ const Home = () => {
         <Options />
       </StyledOptionsLayout>
       <StyledViewLayout >        
-        <ViewList />
+       { props.option === 'optionOne' ? <Charts /> : <Lists />}
       </StyledViewLayout>
       <StyledFooterLayout>
         <p style={{ color: 'white' }}>Footer</p>
@@ -34,4 +35,7 @@ const Home = () => {
   )
 }
 
-export default Home
+export default connect(
+  (state) =>  { return { option: state.options }}, null
+)(Home)
+

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const ViewRadioButtons = ({ selected, handleSelectChange}) => {
+const ViewRadioButtons = ({ selected, handleDataTargetChange }) => {
  
   return (
     <Wrapper>
@@ -11,7 +11,7 @@ const ViewRadioButtons = ({ selected, handleSelectChange}) => {
           name="radio"
           value="population"
           checked={selected === "population"}
-          onChange={event => handleSelectChange(event)}
+          onChange={event => handleDataTargetChange(event)}
         />
         <RadioButtonLabel />
         <LabelText>Population</LabelText>
@@ -22,7 +22,7 @@ const ViewRadioButtons = ({ selected, handleSelectChange}) => {
           name="radio"
           value="emissions"
           checked={selected === "emissions"}
-          onChange={event => handleSelectChange(event)}
+          onChange={event => handleDataTargetChange(event)}
         />
         <RadioButtonLabel />
         <LabelText>Emissions</LabelText>
@@ -31,9 +31,9 @@ const ViewRadioButtons = ({ selected, handleSelectChange}) => {
         <ViewRadioButton
           type="radio"
           name="radio"
-          value="mixed"
-          checked={selected === "mixed"}
-          onChange={event => handleSelectChange(event)}
+          value="perCapita"
+          checked={selected === "perCapita"}
+          onChange={event => handleDataTargetChange(event)}
         />
         <RadioButtonLabel />
         <LabelText>Emissons per citizen</LabelText>

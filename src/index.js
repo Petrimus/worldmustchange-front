@@ -8,11 +8,15 @@ import App from './App'
 import countryReducer from './reducers/countryReducer'
 import optionReducer from './reducers/optionReducer'
 import filterReducer from './reducers/filterReducer'
+import compareReducer from './reducers/compareReducer'
+import chartShowReducer from './reducers/chartShowReducer'
 
 const reducer = combineReducers({
   countries: countryReducer,
   options: optionReducer,
   filter: filterReducer,
+  compare: compareReducer,
+  chartShow: chartShowReducer
 })
 
 const store = createStore(reducer, composeWithDevTools())

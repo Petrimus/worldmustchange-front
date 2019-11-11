@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { filterChange } from '../reducers/filterReducer'
+import { compareChange } from '../reducers/compareReducer'
 
 // styles
 import { ListWrapper, SearchListItem, SearchInput, ContainerDiv, SearchList, SearchForm } from './styles/styledSearchBar'
@@ -45,7 +46,7 @@ const CountrySearchBar = (props) => {
   const handleSelectClick = (value) => {
     setIsOpen(false)
     setInputValue('')
-    props.filterChange(value)
+    props.target === 'oneCountry' ? props.filterChange(value) : props.compareChange(value)
   }
 
   return (
@@ -72,7 +73,7 @@ const mapStateToProps = (state) => {
     filter: state.filter
   }
 }
-const mapDispatchToProps = { filterChange }
+const mapDispatchToProps = { filterChange, compareChange }
 
 const ConnectedCountrySearchBar = connect(
   mapStateToProps,
