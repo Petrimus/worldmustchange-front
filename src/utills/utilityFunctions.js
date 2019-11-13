@@ -27,3 +27,13 @@ export const datasetPopAndEmis = (values) => {
   })
   return dataset
 }
+export const datasetPopAndEmisWithCompare = (values1, values2) => {
+  const dataset = values1.map((c, index) => {
+    return {
+      year: 1960 + index,
+      value: c,
+      compare: values2[index]
+    }
+  })
+  return dataset
+}

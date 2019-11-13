@@ -6,7 +6,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: 350,
+    paddingBottom: '1em',
   },
 })
 
@@ -24,29 +25,34 @@ const theme = createMuiTheme({
   },
 })
 
+
 function valuetext(value) {
   return value
 }
 
-const RangeSlider = (props) => {
-  const { value, handleChange } = props
 
-  const classes = useStyles();
-      
+const RangeSlider = (props) => {  
+  const { value, handleChange } = props
+  const classes = useStyles()
+  // console.log('range slider')
+
+
+  
+
   return (
     <div className={classes.root}>
       <Typography id="range-slider" gutterBottom>
         Year range
       </Typography>
       <ThemeProvider theme={theme} >
-        <Slider   
+        <Slider
           min={1960}
-          max={2020}      
+          max={2020}
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
-          getAriaValueText={valuetext}         
+          getAriaValueText={valuetext}
         />
       </ThemeProvider>
     </div>

@@ -15,27 +15,37 @@ import StyledOptionsLayout from './styles/layouts/StyledOptionsLayout'
 import StyledViewLayout from './styles/layouts/StyledViewLayout'
 import Navbar from './NavBar'
 
-const Home = (props) => {
- 
-  return (
-    <StyledAppLayout>
-      <StyledHeaderLayout>
-        <Navbar />
-      </StyledHeaderLayout>
-      <StyledOptionsLayout>
-        <Options />
-      </StyledOptionsLayout>
-      <StyledViewLayout >        
-       { props.option === 'optionOne' ? <Charts /> : <Lists />}
-      </StyledViewLayout>
-      <StyledFooterLayout>
-        <p style={{ color: 'white' }}>Footer</p>
-      </StyledFooterLayout>
-    </StyledAppLayout>
-  )
+const Home = ({ option }) => {
+
+  let toShow
+  if (option === 'optionOne') {
+    toShow = <Charts />
+  } else if(option === 'optionTwo') {     
+    toShow = <Charts />
+  } else if (option === 'optionThree') {
+    toShow = <Lists />
+  }
+
+
+return (
+  <StyledAppLayout>
+    <StyledHeaderLayout>
+      <Navbar />
+    </StyledHeaderLayout>
+    <StyledOptionsLayout>
+      <Options />
+    </StyledOptionsLayout>
+    <StyledViewLayout >
+      {toShow}
+    </StyledViewLayout>
+    <StyledFooterLayout>
+      <p style={{ color: 'white' }}>Footer</p>
+    </StyledFooterLayout>
+  </StyledAppLayout>
+)
 }
 
 export default connect(
-  (state) =>  { return { option: state.options }}, null
+  (state) => { return { option: state.options } }, null
 )(Home)
 

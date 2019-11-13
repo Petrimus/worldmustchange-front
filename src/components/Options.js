@@ -17,7 +17,7 @@ import {
 const Options = (props) => {
   const [select, setSelect] = useState('optionOne')
   const handleOptionChange = event => {
-    //console.log(select)
+    
     const value = event.target.value
     // console.log(select === "optionOne")
     props.optionChange(value)

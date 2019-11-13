@@ -4,9 +4,10 @@ import { filterChange } from '../reducers/filterReducer'
 import { compareChange } from '../reducers/compareReducer'
 
 // styles
-import { ListWrapper, SearchListItem, SearchInput, ContainerDiv, SearchList, SearchForm } from './styles/styledSearchBar'
+import { ListWrapper, SearchListItem, SearchInput, SearchFieldWrapper, SearchList, SearchForm } from './styles/styledSearchBar'
 
 const CountrySearchBar = (props) => {
+  const { target, placeholder } = props
   const [inputValue, setInputValue] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const node = useRef();
@@ -46,24 +47,24 @@ const CountrySearchBar = (props) => {
   const handleSelectClick = (value) => {
     setIsOpen(false)
     setInputValue('')
-    props.target === 'oneCountry' ? props.filterChange(value) : props.compareChange(value)
+    target === 'oneCountry' ? props.filterChange(value) : props.compareChange(value)
   }
 
   return (
-    <ContainerDiv ref={node}>
+    <SearchFieldWrapper ref={node}>
       <SearchForm>
         <SearchInput
           type="text"
           value={inputValue}
           onChange={handleInputValueChange}
-          placeholder='Select country'
+          placeholder={placeholder}
         />
       </SearchForm>
       {
         isOpen > 0 &&
         <DropDown options={filterCountries()} clickHandler={handleSelectClick} />
       }
-    </ContainerDiv>
+    </SearchFieldWrapper>
   )
 }
 

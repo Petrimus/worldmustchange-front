@@ -1,46 +1,94 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useDebounce } from '../hooks'
+import styled from 'styled-components'
 
 // import data handling functions from utills
-import { datasetPerCapita, datasetPopAndEmis } from '../utills/utilityFunctions'
+import {
+  datasetPerCapita,
+  datasetPopAndEmis,
+  datasetPopAndEmisWithCompare,
+} from '../utills/utilityFunctions'
 
 //import dispatch methods
 import { filterChange } from '../reducers/filterReducer'
-import {changeChartToShow } from '../reducers/chartShowReducer'
+import { changeChartToShow } from '../reducers/chartShowReducer'
 
-import SingleCountry from './views/SingleCountry'
+import CountrySearchBar from './CountrySearchBar'
+import ViewRadioButtons from './ViewRadioButtons'
+import SingleLineChart from './views/SingleLineChart'
+import RangeSlider from './RangeSlider'
+import Button from './utills/Button'
 
+const RangeWrapper = styled.div`
+    display: flex;
+    margin-top: 1em; 
+    align-items: center;   
+  `
 
 const Charts = (props) => {
   const [dataTarget, setDataTarget] = useState('population')
   const [rangeValue, setRangeValue] = useState([1960, 2020])
-
-  const debouncedRangeValue = useDebounce(rangeValue, 200)
+  const debouncedRangeValue = useDebounce(rangeValue, 500)
 
   const handleRangeValueChange = (event, newValue) => {
+    console.log('new value ', newValue)
+    
     setRangeValue(newValue)
   }
-  
+
   const dataTargetChange = event => {
     const value = event.target.value
-    // console.log('value ', value)
-    
+    // console.log('value ', value)    
     setDataTarget(value)
     props.changeChartToShow(value)
   }
 
+  const resetRange = (event) => {
+    console.log('reset range clicked')
+    
+    setRangeValue([1960, 2020])
+  }
+
   return (
-    <div>
-     <SingleCountry 
-      countryName={props.filter}
-      dataTargetChange={dataTargetChange}
-      data={props.showData.slice(debouncedRangeValue[0] - 1960, debouncedRangeValue[1] - 1960)} 
-      selected={dataTarget}
-      rangeValue={rangeValue}
-      handleRangeValueChange={handleRangeValueChange}          
-      />
-  </div>
+    <div style={{ paddingLeft: '20px' }}>
+      <h1
+        style={{ marginBottom: '35px' }}>
+        {props.filter}
+        {(props.option === 'optionTwo' && props.compare !== null) && ` compared to ${props.compare}`}
+      </h1>
+      <div>
+        <CountrySearchBar
+          target='oneCountry'
+          placeholder='select country'
+        />
+        {
+          props.option === 'optionTwo' &&
+          <CountrySearchBar
+            target='compare'
+            placeholder='Compare to another country'
+          />
+        }
+        <ViewRadioButtons
+          selected={dataTarget}
+          handleDataTargetChange={dataTargetChange}
+        />
+      </div>
+      <div>
+        <SingleLineChart
+          filter={props.filter}
+          compare={props.compare}
+          two={props.option === 'optionTwo'}
+          data={props.showData.slice(debouncedRangeValue[0] - 1960, debouncedRangeValue[1] - 1960)} />
+      </div>      
+        <RangeWrapper>
+          <RangeSlider
+            value={rangeValue}
+            handleChange={handleRangeValueChange}           
+          />
+           <Button text="reset" handleButtonClick={resetRange}/>
+        </RangeWrapper>
+    </div>
   )
 }
 
@@ -48,11 +96,8 @@ const chartdataToShow = ({
   countries, chartShow, filter, compare,
 }) => {
   const selectedCountry = countries.filter(c => c.name === filter)[0]
-  // console.log('selectedCountry ', selectedCountry)
-  // console.log('filter ', filter)
-  
-  
-  let compareCountry = null
+
+  let compareCountry
   if (compare !== null) {
     compareCountry = countries.filter(c => c.name === compare)[0]
   }
@@ -60,7 +105,11 @@ const chartdataToShow = ({
   let datasetCountry
   switch (chartShow) {
     case 'population':
-      datasetCountry = datasetPopAndEmis(selectedCountry.population)
+      if (compare === null) {
+        datasetCountry = datasetPopAndEmis(selectedCountry.population)
+      } else {
+        datasetCountry = datasetPopAndEmisWithCompare(selectedCountry.population, compareCountry.population)
+      }
       break;
     case 'emissions':
       datasetCountry = datasetPopAndEmis(selectedCountry.emissions)
@@ -71,33 +120,15 @@ const chartdataToShow = ({
     default:
       datasetCountry = 'population'
   }
-  let datasetCompare
-  if (compareCountry !== null) {
-    switch (chartShow) {
-      case 'population':
-        datasetCompare = datasetPopAndEmis(selectedCountry.population)
-        break;
-      case 'emissions':
-        datasetCompare = datasetPopAndEmis(selectedCountry.emissions)
-        break;
-      case 'perCapita':
-        datasetCompare = datasetPerCapita(selectedCountry.population, selectedCountry.emissions)
-        break;
-      default:
-        datasetCompare = 'population'
-    }
-  }
-  if (compareCountry === null) {
-    return datasetCountry
-  } else {
-    return [datasetCountry, datasetCompare]
-  }
+  return datasetCountry
 }
 
 const mapStateToProps = (state) => {
   return {
     showData: chartdataToShow(state),
-    filter: state.filter
+    filter: state.filter,
+    option: state.options,
+    compare: state.compare
   }
 }
 
@@ -110,3 +141,7 @@ export default connect(
   dispatchToProps
 )(Charts)
 
+
+/*
+ <Button text="reset" handleButtonClick={resetRange}/>
+*/

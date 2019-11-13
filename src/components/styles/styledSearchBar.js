@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
-export const ContainerDiv = styled.div`
+export const SearchFieldWrapper = styled.div`
 width: 400px;
+margin: 20px 0;
 `
 export const SearchForm = styled.form`
 `
