@@ -74,7 +74,7 @@ const Options = (props) => {
             <OptionRadioLabel htmlFor="two">Compare</OptionRadioLabel>
             <CheckMarked
               pos={selectPositions()}
-            ></CheckMarked>
+            ></CheckMarked >
           </OptionItem>
           <OptionItem>
             <OptionRadioButton

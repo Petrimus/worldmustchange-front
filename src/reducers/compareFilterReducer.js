@@ -12,7 +12,7 @@ export const removeCompare = () => {
   }
 }
 
-const compareReducer = (state = null, action) => {
+const compareFilterReducer = (state = null, action) => {
   switch (action.type) {
     case 'SET_COMPAREFILTER':
       return action.filter
@@ -24,4 +24,4 @@ const compareReducer = (state = null, action) => {
   }
 }
 
-export default compareReducer
+export default compareFilterReducer

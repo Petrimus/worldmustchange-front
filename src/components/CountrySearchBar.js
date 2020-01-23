@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
-import { filterChange } from '../reducers/filterReducer'
-import { compareChange } from '../reducers/compareReducer'
+import { filterChange } from '../reducers/countryFilterReducer'
+import { compareChange } from '../reducers/compareFilterReducer'
 
 // styles
 import { ListWrapper, SearchListItem, SearchInput, SearchFieldWrapper, SearchList, SearchForm } from './styles/styledSearchBar'
@@ -16,6 +16,7 @@ const CountrySearchBar = (props) => {
     if (node.current.contains(e.target)) {     
       return
     }   
+    setInputValue('')
     setIsOpen(false);
   }
 

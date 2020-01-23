@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route, /* Link, Redirect, withRouter */
 } from 'react-router-dom'
 
+import { initializeCountries } from './reducers/countryReducer'
+
 // import components
 import Home from './components/Home'
 
 
-const App = () => {
+const App = (props) => {
+  const { initializeCountries } = props
+
+  useEffect(() => {
+    console.log('effect')    
+    initializeCountries()   
+  }, [initializeCountries])
 
   return (
   <div>
@@ -18,4 +27,7 @@ const App = () => {
   </div>
   )
 }
-export default App
+
+export default connect(
+  null, { initializeCountries }
+)(App)

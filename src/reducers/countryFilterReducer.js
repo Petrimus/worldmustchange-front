@@ -6,7 +6,7 @@ export const filterChange = filter => {
   }
 }
 
-const filterReducer = (state = 'Aruba', action) => {
+const countryFilterReducer = (state = 'Aruba', action) => {
   switch (action.type) {
     case 'SET_FILTER':
       return action.filter
@@ -14,4 +14,4 @@ const filterReducer = (state = 'Aruba', action) => {
   }
 }
 
-export default filterReducer
+export default countryFilterReducer

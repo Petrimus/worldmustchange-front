@@ -1,27 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import './index.css'
 import App from './App'
-import countryReducer from './reducers/countryReducer'
-import optionReducer from './reducers/optionReducer'
-import filterReducer from './reducers/filterReducer'
-import compareReducer from './reducers/compareReducer'
-import chartShowReducer from './reducers/chartShowReducer'
-
-const reducer = combineReducers({
-  countries: countryReducer,
-  options: optionReducer,
-  filter: filterReducer,
-  compare: compareReducer,
-  chartShow: chartShowReducer
-})
-
-const store = createStore(reducer, composeWithDevTools())
-// console.log('store', store)
-// console.log('state', store.getState())
+import store from './store'
 
 
 ReactDOM.render(
