@@ -14,6 +14,8 @@ export const initializeCountries = () => {
 const countryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_COUNTRIES':
+      console.log('init countries', action.data)
+      
       return action.data
     default:
       return state

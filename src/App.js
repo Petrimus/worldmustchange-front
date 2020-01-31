@@ -19,6 +19,8 @@ const App = (props) => {
     initializeCountries()   
   }, [initializeCountries])
 
+  // console.log('render')
+  
   return (
   <div>
     <Router>

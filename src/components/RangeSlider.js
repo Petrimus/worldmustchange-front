@@ -25,19 +25,14 @@ const theme = createMuiTheme({
   },
 })
 
-
 function valuetext(value) {
   return value
 }
 
-
 const RangeSlider = (props) => {  
   const { value, handleChange } = props
   const classes = useStyles()
-  // console.log('range slider')
-
-
-  
+  // console.log('range slider')  
 
   return (
     <div className={classes.root}>

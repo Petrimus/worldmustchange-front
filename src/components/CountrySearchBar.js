@@ -4,7 +4,15 @@ import { filterChange } from '../reducers/countryFilterReducer'
 import { compareChange } from '../reducers/compareFilterReducer'
 
 // styles
-import { ListWrapper, SearchListItem, SearchInput, SearchFieldWrapper, SearchList, SearchForm } from './styles/styledSearchBar'
+import { 
+  ListWrapper, 
+  SearchListItem,
+  SearchInput,
+  SearchFieldWrapper,
+  SearchList,
+  SearchForm,
+  StyledInputField
+} from './styles/styledSearchBar'
 
 const CountrySearchBar = (props) => {
   const { target, placeholder } = props
@@ -54,7 +62,7 @@ const CountrySearchBar = (props) => {
   return (
     <SearchFieldWrapper ref={node}>
       <SearchForm>
-        <SearchInput
+        <StyledInputField
           type="text"
           value={inputValue}
           onChange={handleInputValueChange}

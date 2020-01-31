@@ -34,8 +34,7 @@ const Charts = (props) => {
   const debouncedRangeValue = useDebounce(rangeValue, 500)
   
   const handleRangeValueChange = (event, newValue) => {
-    console.log('new value ', newValue)
-
+    // console.log('new value ', newValue)
     setRangeValue(newValue)
   }
 
@@ -51,6 +50,7 @@ const Charts = (props) => {
 
     setRangeValue([1960, 2020])
   }
+console.log('chart render')
 
   return (
     <div style={{ paddingLeft: '20px', marginLeft: '3em' }}>
