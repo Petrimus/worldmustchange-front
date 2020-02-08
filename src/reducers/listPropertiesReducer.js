@@ -3,11 +3,17 @@ const listPropertiesReducer = (state = initial, action) => {
   let newState = { ...state }
   switch (action.type) {
     case 'CHANGE_LISTORDER':
-      newState.order = action.order
+      let newOrder = state.order === 'asc' ? 'desc' : 'asc';
+    /*
+      if (sort !== clickedColumn) {
+      newOrder = 'asc';
+    }
+    */
+      newState.order = newOrder
       return newState
 
     case 'CHANGE_PAGE':
-      newState.order = action.order
+      newState.page = action.page
       return newState
 
     case 'CHANGE_LISTSORT':
@@ -32,7 +38,7 @@ const initial = {
   sort: 'id',
   year: 2000,
   page: 1,
-  order: 'asc',
+  order: 'desc',
   limit: 10,
   // q: '',
 

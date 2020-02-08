@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
-  changeListOrd,
+  changeListOrder,
   changeListPage,
   changeListSort,
   changeListLimit,
@@ -21,19 +21,33 @@ const Lists = (props) => {
   const [sliderValue, setSliderValue] = useState(2000)
 
   // console.log('slider value ', sliderValue)
+  console.log('limit', props.limit)
+  console.log(typeof props.limit)
+  
+  
 
   const debouncedSliderValue = debounce((value) => {
     setSliderValue(value)
     props.changeListYear(value)
-  }, 300)
+  }, 500)
   // const change = (value) => setSliderValue(value)
 
   const handleSort = (clickedColumn) => {
-    const { _sort, _order } = this.state;
+    props.changeListSort(clickedColumn)
+    props.changeListOrder()
+    }
+  
 
-    let newOrder = _order === 'asc' ? 'desc' : 'asc';
-    if (_sort !== clickedColumn) {
-      newOrder = 'asc';
+  const onChangePage = (event, data) => {
+    const { activePage } = data
+    if (activePage !== props.page) {
+    props.changeListPage(activePage)
+    } 
+  }
+
+  const onChangeLimit = (event, data) => {
+    if (data.value !== props.limit) {
+      props.changeListLimit(data.value)
     }
   }
 
@@ -47,15 +61,15 @@ const Lists = (props) => {
       <Divider />
       <ListTable
         countries={listCountries}
-        totalCount={listCountries.length}
-        totalPages={Math.ceil(this.state.totalCount / this.state._limit)}
-        currentPage={page}
-        onChangePage={this.onChangePage}
-        column={sort}
-        direction={directionConverter(order)}
-        handleSort={this.handleSort}
-        onChangeLimit={this.onChangeLimit}
-        limit={limit.toString()}
+        totalCount={props.totalCount}
+        totalPages={ Math.ceil(props.totalCount / props.limit) }
+        currentPage={props.page}
+        onChangePage={onChangePage}
+        column={props.sort}
+        direction='ascending'
+        handleSort={handleSort}
+        onChangeLimit={onChangeLimit}
+        limit={props.limit.toString()}
       />
     </Segment>
   )
@@ -63,14 +77,17 @@ const Lists = (props) => {
 
 const listToShow = ({ countries, listProperties }) => {
   let listArray = []
-  const year = listProperties.year - 1960
-  countries.forEach(country => {
-    country.population = country.population[year]
-    country.emissions = country.emissions[year]
-    country.perCapita = country.percapita[year]
-    country.year = year
-    listArray.push(country)
+  const indexYear = listProperties.year - 1960
+  countries.forEach((country) => {
+    // console.log('country ', country)
+    const newCountry = { ...country }
+    newCountry.population = country.population[indexYear]
+    newCountry.emissions = country.emissions[indexYear]
+    newCountry.perCapita = country.perCapita[indexYear]
+    newCountry.year = 1960 + indexYear
+    listArray.push(newCountry)
   })
+
   if (listProperties.sort === 'population') {
     if (listProperties.order === 'asc') {
       listArray.sort((p1, p2) => { return p1.population - p2.population })
@@ -96,13 +113,18 @@ const listToShow = ({ countries, listProperties }) => {
 }
 
 const mapStateToProps = (state) => {
+  // console.log('state', state)
   return {
-    listCountries: listToShow(state)
+    listCountries: listToShow(state),
+    limit: state.listProperties.limit,
+    totalCount: state.countries.length,
+    sort: state.listProperties.sort,
+    page: state.listProperties.page
   }
 }
 
 const dispatchToProps = {
-  changeListOrd,
+  changeListOrder,
   changeListPage,
   changeListSort,
   changeListLimit,

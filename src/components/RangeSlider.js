@@ -56,7 +56,7 @@ const RangeSlider = ({ value, handleChange }) => {
 }
 
 RangeSlider.propTypes = {
-  value: propTypes.number.isRequired,
+  value: propTypes.array.isRequired,
   handleChange: propTypes.func.isRequired
 }
 
