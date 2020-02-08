@@ -7,6 +7,7 @@ import optionReducer from './reducers/optionReducer'
 import countryFilterReducer from './reducers/countryFilterReducer'
 import compareFilterReducer from './reducers/compareFilterReducer'
 import chartShowReducer from './reducers/chartShowReducer'
+import listPropertiesReducer from './reducers/listPropertiesReducer'
 
 
 const reducer = combineReducers({
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   options: optionReducer,
   countryFilter: countryFilterReducer,
   compareFilter: compareFilterReducer,
-  chartShow: chartShowReducer
+  chartShow: chartShowReducer,
+  listProperties: listPropertiesReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

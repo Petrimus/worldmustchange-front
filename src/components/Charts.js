@@ -27,12 +27,18 @@ const RangeWrapper = styled.div`
     align-items: center;   
   `
 
-const Charts = (props) => {
+const Charts = ({
+  changeChartToShow,
+  countryFilter,
+  option,
+  compareFilter,
+  showData
+}) => {
 
   const [dataTarget, setDataTarget] = useState('population')
   const [rangeValue, setRangeValue] = useState([1960, 2020])
   const debouncedRangeValue = useDebounce(rangeValue, 500)
-  
+
   const handleRangeValueChange = (event, newValue) => {
     // console.log('new value ', newValue)
     setRangeValue(newValue)
@@ -42,7 +48,7 @@ const Charts = (props) => {
     const value = event.target.value
     // console.log('value ', value)    
     setDataTarget(value)
-    props.changeChartToShow(value)
+    changeChartToShow(value)
   }
 
   const resetRange = (event) => {
@@ -50,14 +56,14 @@ const Charts = (props) => {
 
     setRangeValue([1960, 2020])
   }
-console.log('chart render')
+  // console.log('chart render')
 
   return (
     <div style={{ paddingLeft: '20px', marginLeft: '3em' }}>
       <h1
         style={{ marginBottom: '35px' }}>
-        {props.countryFilter}
-        {(props.option === 'optionTwo' && props.compareFilter !== null) && ` compared to ${props.compareFilter}`}
+        {countryFilter}
+        {(option === 'optionTwo' && compareFilter !== null) && ` compared to ${compareFilter}`}
       </h1>
       <div>
         <CountrySearchBar
@@ -65,7 +71,7 @@ console.log('chart render')
           placeholder='select country'
         />
         {
-          props.option === 'optionTwo' &&
+          option === 'optionTwo' &&
           <CountrySearchBar
             target='compare'
             placeholder='Compare to another country'
@@ -78,13 +84,13 @@ console.log('chart render')
       </div>
       <div>
         <SingleLineChart
-          filter={props.countryFilter}
-          compare={props.compareFilter}
-          two={props.option === 'optionTwo'}
-          data={props.showData ? 
-            props.showData.slice(debouncedRangeValue[0] - 1960, debouncedRangeValue[1] - 1960) :
-            null }           
-            />
+          filter={countryFilter}
+          compare={compareFilter}
+          two={option === 'optionTwo'}
+          data={showData ?
+            showData.slice(debouncedRangeValue[0] - 1960, debouncedRangeValue[1] - 1960) :
+            null}
+        />
       </div>
       <RangeWrapper>
         <RangeSlider
@@ -97,24 +103,21 @@ console.log('chart render')
   )
 }
 
-const chartdataToShow = ({
-  countries, chartShow, countryFilter, compareFilter, options
-}) => {
-  // console.log('compareFilter ', compareFilter)
-  // console.log('option ', options)
-  if (countries.length === 0) {
-    return
+const chartdataToShow = (state) => {
+
+  if (state.countries.length === 0) {
+    return null
   }
 
-  const selectedCountry = countries.filter(c => c.name === countryFilter)[0]
+  const selectedCountry = state.countries.filter(c => c.name === state.countryFilter)[0]
 
   let compareCountry = null
-  if (compareFilter !== null && options === 'optionTwo') {
-    compareCountry = countries.filter(c => c.name === compareFilter)[0]
+  if (state.compareFilter !== null && state.options === 'optionTwo') {
+    compareCountry = state.countries.filter(c => c.name === state.compareFilter)[0]
   }
 
   let datasetCountry
-  switch (chartShow) {
+  switch (state.chartShow) {
     case 'population':
       if (compareCountry === null) {
         datasetCountry = datasetPopAndEmis(selectedCountry.population)
@@ -131,11 +134,10 @@ const chartdataToShow = ({
       break;
     case 'perCapita':
       if (compareCountry === null) {
-        datasetCountry = datasetPerCapita(selectedCountry.population, selectedCountry.emissions)
+        datasetCountry = datasetPerCapita(selectedCountry.perCapita)
       } else {
-        datasetCountry = datasetPerCapitaWithCompare(
-          selectedCountry.population, selectedCountry.emissions, compareCountry.population, compareCountry.emissions)
-      }     
+        datasetCountry = datasetPerCapitaWithCompare(selectedCountry.perCapita, compareCountry.perCapita)
+      }
       break;
     default:
       datasetCountry = 'population'

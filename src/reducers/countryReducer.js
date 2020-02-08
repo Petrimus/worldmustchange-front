@@ -14,12 +14,30 @@ export const initializeCountries = () => {
 const countryReducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_COUNTRIES':
-      console.log('init countries', action.data)
+      // console.log('init countries', action.data)
+      const countries = action.data.map((country) => {
+       country.perCapita = datasetPerCapita(country.population, country.emissions) 
+       return country
+      })
+      return countries
       
-      return action.data
     default:
       return state
   }
 }
 
 export default countryReducer
+
+const datasetPerCapita = (population, emissions) => {
+  const perCapitaDataset = []
+  for (let i = 0; i < population.length; i++) {
+    if (population[i] !== null && emissions[i] !== null) {
+      const value = emissions[i] * 1000 / population[i]
+      perCapitaDataset.push(Math.round(value * 10) / 10)      
+     
+    } else {
+      perCapitaDataset.push(null)      
+    }
+  }
+  return perCapitaDataset
+}

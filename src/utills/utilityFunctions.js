@@ -1,25 +1,30 @@
 
-export const datasetPerCapita = (population, emissions) => {
+export const datasetPerCapita = (perCapita) => {
   const perCapitaDataset = []
-  for (let i = 0; i < population.length; i++) {
-    if (population[i] !== null && emissions[i] !== null) {
-      const value = population[i] / emissions[i]
-      perCapitaDataset.push({
-        year: 1960 + i,
-        value: value,
-      })
-    } else {
-      perCapitaDataset.push({
-        year: 1960 + i,
-        value: null,
-      })
-    }
+  for (let i = 0; i < perCapita.length; i++) {
+    perCapitaDataset.push({
+      year: 1960 + i,
+      value: perCapita[i]
+    })
   }
   return perCapitaDataset
 }
 
-export const datasetPerCapitaWithCompare =
-  (population1, emissions1, population2, emissions2) => {
+export const datasetPerCapitaWithCompare = (perCapita, perCapitaCompare) => {
+  let perCapitaDataset = []
+  for (let i = 0; i < perCapita.length; i++) {
+
+    perCapitaDataset.push({
+      year: 1960 + i,
+      value: perCapita[i],
+      compare: perCapitaCompare[i]
+    })
+  }
+  return perCapitaDataset
+}
+
+/*  
+(population1, emissions1, population2, emissions2) => {
     const perCapitaDataset = []
     for (let i = 0; i < population1.length; i++) {
 
@@ -41,6 +46,7 @@ export const datasetPerCapitaWithCompare =
     }
     return perCapitaDataset
   }
+*/
 
 export const datasetPopAndEmis = (values) => {
   const dataset = values.map((c, index) => {

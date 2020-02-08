@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/core/Slider'
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles'
+import propTypes from 'prop-types'
 
 const useStyles = makeStyles({
   root: {
@@ -29,10 +30,10 @@ function valuetext(value) {
   return value
 }
 
-const RangeSlider = (props) => {  
-  const { value, handleChange } = props
+const RangeSlider = ({ value, handleChange }) => {
+
   const classes = useStyles()
-  // console.log('range slider')  
+  // console.log('range slider')
 
   return (
     <div className={classes.root}>
@@ -52,6 +53,11 @@ const RangeSlider = (props) => {
       </ThemeProvider>
     </div>
   )
+}
+
+RangeSlider.propTypes = {
+  value: propTypes.number.isRequired,
+  handleChange: propTypes.func.isRequired
 }
 
 export default RangeSlider

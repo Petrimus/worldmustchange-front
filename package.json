@@ -7,6 +7,7 @@
     "axios": "^0.19.0",
     "chart.js": "^2.9.0",
     "lodash": "^4.17.15",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-onclickoutside": "^6.9.0",
@@ -17,13 +18,15 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^0.88.2",
     "styled-components": "^4.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +44,9 @@
     ]
   },
   "devDependencies": {
-    "deep-freeze": "0.0.1"
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.0",
+    "deep-freeze": "0.0.1",
+    "eslint-plugin-jest": "^23.6.0"
   }
 }
